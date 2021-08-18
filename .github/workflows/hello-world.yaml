@@ -58,3 +58,14 @@ jobs:
         run: chmod +x ci/build-docker.sh && ci/build-docker.sh
       - name: pushImg
         run: chmod +x ci/push-docker.sh && ci/push-docker.sh 
+  Component-test:
+    needs: Docker-Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download code
+      uses: actions/download-artifact@v1
+      with:
+        name: code
+        path: .
+    - name: component test
+      run: chmod +x ci/component-test.sh && ci/component-test.sh
